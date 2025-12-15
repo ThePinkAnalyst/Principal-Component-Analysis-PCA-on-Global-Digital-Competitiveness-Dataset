@@ -1,93 +1,100 @@
 # Principal Component Analysis (PCA) on Global Digital Competitiveness Dataset
 
-## Project Overview
-The primary objective of this project was to perform Principal Component Analysis (PCA) on a dataset related to digital competitiveness across various countries. The dataset initially consisted of 24 variables, including economic indicators, technological adoption metrics, and education and infrastructure data. The goal was to reduce the dimensionality of the dataset while retaining the most significant components that explain the majority of the variance in the data.
+## Executive Summary
 
-## Dataset Description
-The original dataset contained the following variables:
-### Country and Demographics:
-Country,
-Country Key, and
-Year.
+Global digital competitiveness datasets often contain a large number of highly correlated economic, technological, and social indicators, making downstream modeling unstable and difficult to interpret.
 
-### Skills and Research:
-Foreign highly skilled personnel,
-Digital/Technological skills,
-Total expenditure on R&D (%), and
-Scientific research legislation.
+This project demonstrates how Principal Component Analysis (PCA) can be used as a feature engineering technique to reduce dimensionality, mitigate multicollinearity, and produce a compact set of latent factors that preserve the majority of informational variance.
 
-### Technology and Infrastructure:
-Mobile broadband subscribers,
-EParticipation,
-Use of big data and analytics, and
-Health infrastructure.
+The resulting transformed dataset is more suitable for clustering, regression, and comparative country-level analysis while retaining meaningful economic and technological signals.
 
-### Economy and Labor:
-Skilled labor,
-Gross Domestic Product (GDP),
-GDP (PPP) per capita,
-Exports of goods growth,
-Government budget surplus/deficit (%), and
-Tax evasion.
+## Business & Analytical Problem
 
-### Social Indicators:
-Pension funding,
-Protectionism,
-Equal opportunity, and
-Disposable income.
+Organizations and policymakers assessing digital competitiveness across countries face three key challenges:
 
-### Corporate and Energy Consumption:
-Listed domestic companies,
-Image abroad or branding,
-Digital transformation in companies, and
-Total final energy consumption per capita.
+1. **High Dimensionality** – Dozens of overlapping indicators across skills, technology, economy, and infrastructure.
+2. **Multicollinearity** – Strong correlations between variables such as GDP, skilled labor, and R&D spend distort modeling results.
+3. **Interpretability vs Performance Trade-off** – Using all variables increases complexity without proportional analytical value.
+
+Without dimensionality reduction, comparative analysis and predictive modeling become unreliable and difficult to scale.
+
+## Dataset Overview
+
+The dataset captures country-level indicators of digital competitiveness across economic, technological, and social dimensions.
+
+It consists of 24 numerical variables grouped into:
+- Skills & Research
+- Technology & Infrastructure
+- Economy & Labor
+- Social Indicators
+- Corporate Presence & Energy Consumption
+
+Each observation represents a country-year combination.
 
 
-## Tools & Technologies Used
-Programming Languages: Python.
-Libraries/Frameworks: Pandas, NumPy, Scikit-learn, Seaborn, Matplotlib.
-Software/Platforms: Jupyter Notebook
+## Exploratory Data Analysis
 
-## Methodology
-### Exploratory Data Analysis
-The exploratory data analysis (EDA) phase included:
+EDA was performed to understand variable distributions and identify structural relationships within the data.
 
-Correlation Analysis:
-A correlation heatmap was generated to visualize the relationships between the numerical variables in the dataset.
+Key steps included:
+- Correlation heatmap to detect multicollinearity
+- Distribution plots and histograms to assess skewness and scale differences
+- Pairwise relationships to identify redundant indicators
 
-Pairplots and Distribution Plots:
-Pairplots were used to examine the relationships between pairs of variables, helping identify patterns and potential correlations. Distribution plots were utilized to visualize the distribution of each variable, offering insights into their spread and central tendencies.
+The analysis revealed strong correlations across economic and skills-related variables, motivating dimensionality reduction.
 
-Histograms:
-Histograms were plotted for each variable to understand their frequency distribution and detect any potential outliers or skewness.
+## Principal Component Analysis (PCA)
 
-### Principal Component Analysis (PCA)
-Fitting PCA:
-PCA was applied to the dataset to reduce the dimensionality. The explained variance ratio for each principal component was calculated and visualized.
+### Data Preparation
+- Numerical features were standardized to ensure equal contribution to variance.
+- Non-numerical identifiers (country, year) were excluded.
 
-Optimal Number of Components:
-The elbow method was employed to determine the optimal number of components to retain. This involved plotting the cumulative explained variance ratio against the number of components. An explained variance ratio of 95% was considered as statistically significant.
-The optimal number of components was determined to be 14, explaining the majority of the variance in the data.
+### Model Fitting
+- PCA was fitted to the standardized dataset.
+- Explained variance ratios were computed for each component.
 
-Final PCA Application:
-PCA was performed using the optimal 14 components. The resulting components were ranked by their importance, and the most significant features were selected.
+### Component Selection
+- The cumulative explained variance curve (elbow method) was used to determine the optimal number of components.
+- **14 principal components were retained**, capturing approximately **95% of total variance**.
 
-Component Analysis:
-The selected components were analyzed to identify the most influential variables, which were then used to create a reduced dataset for further analysis.
+This transformation reduced the feature space while preserving the majority of informational content.
 
-## Findings
-After performing PCA and using the elbow method to determine the optimal number of principal components, the dataset was reduced to the following 14 principal components:
--Foreign highly skilled personnel
--Total expenditure on R&D (%)
--Scientific research legislation
--Mobile broadband subscribers
--EParticipation
--Use of big data and analytics
--Total public exp. on education per student
--Health infrastructure
--Skilled labor
--Gross Domestic Product (GDP)
--GDP (PPP) per capita
--Exports of goods growth
--Government budget surplus/deficit (%)
--Tax evasion
+## Component Interpretation
+
+Each principal component represents a latent factor composed of weighted contributions from multiple original variables.
+
+Analysis of component loadings revealed dominant themes such as:
+- Economic scale and productivity
+- Digital infrastructure adoption
+- Research and innovation capacity
+- Institutional effectiveness and governance
+
+These components provide a compact representation of national digital competitiveness rather than direct one-to-one mappings with original variables.
+
+## Analytical Value & Use Cases
+
+The PCA-transformed dataset enables:
+
+- **Clustering Analysis:** Grouping countries based on latent digital competitiveness profiles
+- **Predictive Modeling:** Reduced multicollinearity improves model stability and interpretability
+- **Index Construction:** Principal components can be combined into composite competitiveness indices
+- **Comparative Benchmarking:** Countries can be compared using orthogonal, information-rich dimensions
+
+## Key Outcomes
+
+- Reduced original feature space from 24 correlated variables to 14 orthogonal components
+- Preserved ~95% of total variance
+- Improved analytical readiness for downstream machine learning tasks
+- Demonstrated effective feature engineering for complex socio-economic datasets
+
+
+## Limitations & Future Enhancements
+
+- PCA reduces interpretability compared to original variables
+- Results are sensitive to feature scaling and data distribution
+- Future work could compare PCA with alternative techniques such as:
+  - Factor Analysis
+  - Autoencoders
+  - Domain-driven feature selection
+
+The transformed dataset can also be integrated into supervised learning pipelines for prediction or classification tasks.
